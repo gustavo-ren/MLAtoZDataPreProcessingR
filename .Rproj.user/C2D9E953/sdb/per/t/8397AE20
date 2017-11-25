@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#Import library\nlibrary(readr)\n\n#Reading the dataset\ndataset <-read.csv(\"C:\\\\Users\\\\Gustavo\\\\Documents\\\\Big data e Cloud\\\\Machine_Learning_AZ_Template_Folder\\\\Machine Learning A-Z Template Folder\\\\Part 1 - Data Preprocessing\\\\Data_Preprocessing\\\\Data.csv\")\n\n#Replacing missing values on column Age\ndataset$Age <- ifelse(is.na(dataset$Age),\n                      ave(dataset$Age, FUN = function(x)mean(x, na.rm = TRUE)),\n                      dataset$Age)\n\n#Replacing missing values on column Salary\ndataset$Salary <- ifelse(is.na(dataset$Salary),\n                      ave(dataset$Salary, FUN = function(x)mean(x, na.rm = TRUE)),\n                      dataset$Salary)\n\n                          #Column to be used\ndataset$Country <- factor(dataset$Country,\n                          levels = c(\"France\", \"Spain\", \"Germany\"),#Vector with the values of the column\n                          labels = c(1, 2, 3))#Labels that will replace it\ndataset$Purchased <- factor(dataset$Purchased,\n                            levels = c(\"No\", \"Yes\"),\n                            labels = c(0, 1))\n\nlibrary(caTools)\nset.seed(12)#Used to get the same results everytime\n\n#In R there is no need to split both dependent and independent variables\nsplit <- sample.split(dataset$Purchased, SplitRatio = 0.75)\ntraining_set <- subset(dataset, split == TRUE)\ntest_set <- subset(dataset, split == FALSE)\n\n\n#Scaling the training set\ntraining_set[, 2:3] <- scale(training_set[, 2:3])\nView(training_set)\n\n#Scaling the test set\ntest_set[, 2:3] <- scale(test_set[, 2:3])\nView(test_set)\n",
+    "created" : 1511612433661.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2513287350",
+    "id" : "8397AE20",
+    "lastKnownWriteTime" : 1511635456,
+    "last_content_update" : 1511635456533,
+    "path" : "~/R Projects/MLAtoZDataPreProcessing/data_preprocessing.R",
+    "project_path" : "data_preprocessing.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
